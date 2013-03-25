@@ -1,0 +1,18 @@
+Package: Concordances
+Type: Package
+Title: Utilities for Language Processing
+Version: 0.01
+Date: 2013-03-20
+Author: Heewon Jeon <madjakarta@gmail.com>
+Maintainer: Heewon Jeon <madjakarta@gmail.com>
+Description: 
+License: GPL-3
+Depends:
+    R (>= 2.14.0),
+    testthat (>= 0.5),
+    utils (>= 2.14.0),
+    stringr (>= 0.6.2),
+    hash (>= 2.2.6),
+    tau (>= 0.0-15)
+Collate:
+    'Concordances.R'

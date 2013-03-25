@@ -1,0 +1,15 @@
+{
+    "contents" : "Package: Concordances\nType: Package\nTitle: Utilities for Language Processing\nVersion: 0.01\nDate: 2013-03-20\nAuthor: Heewon Jeon <madjakarta@gmail.com>\nMaintainer: Heewon Jeon <madjakarta@gmail.com>\nDescription: \nLicense: GPL-3\nDepends:\n    R (>= 2.14.0),\n    testthat (>= 0.5),\n    utils (>= 2.14.0),\n    stringr (>= 0.6.2),\n    hash (>= 2.2.6),\n    tau (>= 0.0-15)\nCollate:\n    'Concordances.R'\n",
+    "created" : 1364184280729.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4246051958",
+    "id" : "7F925F2E",
+    "lastKnownWriteTime" : 1364185330,
+    "path" : "D:/work/Concordances/DESCRIPTION",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "dcf"
+}

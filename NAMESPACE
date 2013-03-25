@@ -1,0 +1,6 @@
+export(concordance_file)
+export(concordance_str)
+export(mutualinformation)
+import(hash)
+import(stringr)
+import(tau)

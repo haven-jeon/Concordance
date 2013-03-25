@@ -1,0 +1,16 @@
+{
+    "contents" : "#' concordance for input text vector\n#' \n#' returns concordance text for input pattern and span.\n#' \n#' @author Heewon Jeon\n#' @param string input text as character vector or single character\n#' @param pattern patterns of central words\n#' @param span how many character will be produced around input pattern\n#' @import stringr\n#' @export\nconcordance_str <- function(string, pattern, span=5){\n  str_match(string, sprintf(\".{0,%d}%s.{0,%d}\", span, pattern, span))\n}\n\n\n#' concordance for input text file\n#' \n#' returns concordance text for input file.\n#' \n#' @author Heewon Jeon\n#' @param filename file name\n#' @param pattern patterns of central words\n#' @param span how many character will be produced around input pattern\n#' @param encoding filename's encoding\n#' @export\nconcordance_file <- function(filename, pattern, encoding=getOption('encoding'), span=5){\n  f = file(filename, \"r\",encoding=encoding); on.exit(close(f), add = TRUE)\n  while(TRUE) {\n    next_line = readLines(f, n = 1, warn=FALSE)\n    if(length(next_line) == 0) {\n      break\n    }\n    ret <- concordance_str(next_line, pattern, span)\n    if(!is.na(ret)){\n      if(exists(\"retu\")){\n        retu <- rbind(retu, ret)\n      }else{\n        retu <- ret\n      }\n    }\n  }\n  return(retu)\n}\n\n\n\n#' mutual information for input text\n#' \n#' returns mutual information or t-scores for input text \n#' \n#' @author Heewon Jeon\n#' @param text input character vector \n#' @param method for calculations(`mutual' or `t-scores') \n#' @import tau\n#' @import hash\n#' @export\nmutualinformation <- function(text, method=c(\"mutual\", \"tscores\")){\n  unigram <- hash(textcnt(text, method=\"string\", n=1))\n  bigram <- hash(textcnt(text, method=\"string\", n=2))\n  num_of_words <- sum(values(unigram))\n  num_of_bigrams <- sum(values(bigram))\n  \n  method <- match.arg(method)\n  if(method == \"mutual\"){\n    #calc mutual_information\n    sapply(names(bigram), function(x) {\n      bi <- unlist(strsplit(x, split=\" \"))\n      log( (bigram[[x]] * num_of_words)/(unigram[[bi[1]]] * unigram[[bi[2]]]) )\n    }, USE.NAMES=TRUE)\n  }else if(method == \"tscores\"){\n    #calc tscores \n    sapply(names(bigram), function(x) {\n      bi <- unlist(strsplit(x, split=\" \"))\n      (bigram[[x]] - 1/num_of_words * unigram[[bi[1]]] * unigram[[bi[2]]]) / sqrt(bigram[[x]])\n    }, USE.NAMES=TRUE)\n  }\n}\n\n\n",
+    "created" : 1363750906426.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3155097723",
+    "id" : "59A3BC22",
+    "lastKnownWriteTime" : 1364185328,
+    "path" : "D:/work/Concordances/R/Concordances.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
