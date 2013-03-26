@@ -54,22 +54,24 @@ concordance_file <- function(filename, pattern, encoding=getOption('encoding'), 
 #' @import tau
 #' @import hash
 #' @export
-mutualinformation <- function(text, method=c("mutual", "tscores")){
+mutualinformation <- function(text, query="", method=c("mutual", "tscores")){
   unigram <- hash(textcnt(text, method="string", n=1))
   bigram <- hash(textcnt(text, method="string", n=2))
   num_of_words <- sum(values(unigram))
   num_of_bigrams <- sum(values(bigram))
   
   method <- match.arg(method)
+  bigram_names <- Filter(function(x) { query %in% unlist(strsplit(x, split=" ")) | query == "" },  
+             names(bigram))
   if(method == "mutual"){
     #calc mutual_information
-    sapply(names(bigram), function(x) {
+    sapply(bigram_names, function(x) {
       bi <- unlist(strsplit(x, split=" "))
       log( (bigram[[x]] * num_of_words)/(unigram[[bi[1]]] * unigram[[bi[2]]]) )
     }, USE.NAMES=TRUE)
   }else if(method == "tscores"){
     #calc tscores 
-    sapply(names(bigram), function(x) {
+    sapply(bigram_names, function(x) {
       bi <- unlist(strsplit(x, split=" "))
       (bigram[[x]] - 1/num_of_words * unigram[[bi[1]]] * unigram[[bi[2]]]) / sqrt(bigram[[x]])
     }, USE.NAMES=TRUE)
